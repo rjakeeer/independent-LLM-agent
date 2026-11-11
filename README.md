@@ -1,6 +1,10 @@
 # 🛡️ Independent LLM Security Agent (`independent-LLM-agent`)
 
-**License:** MIT | **Protocol:** Model Context Protocol (MCP) | **Stack:** Python 3.11+, Ollama, Docker | **Status:** In Development
+![License: MIT](https://shields.io)
+![Protocol: MCP](https://shields.io)
+![Python: 3.11+](https://shields.io)
+![Docker: Sandbox](https://shields.io)
+![Status: In Development](https://shields.io)
 
 ---
 
