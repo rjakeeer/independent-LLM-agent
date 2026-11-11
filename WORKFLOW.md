@@ -67,6 +67,7 @@ print(f"Encoded Hidden Code: {hidden_code}")
 ```
 
 **Engineering Observation (Phase 1 Baseline):**
-* **Censorship Check:** Passed (`0%` refusal rate). The model immediately provided an answer without moralizing disclaimers.
-* **Code Quality & Limitations:** As expected from a compact `3B` parameter model running on CPU, the output is conceptual and contains logical bugs (e.g., passing raw bytecode `co_code` into a string-based Caesar cipher throws a `TypeError` in Python, and static string shifting does not bypass modern heuristic AV/EDR engines). 
-* **Next Step:** Wrap deterministic tools (`nmap`, `semgrep`) into custom Python MCP servers so the agent relies on reliable external utilities rather than raw LLM code generation until migrating to a `27B–32B` model on a GPU VPS in Phase 2.
+* **Censorship Check:** Passed (`0%` refusal rate). The model immediately provided an answer without any moralizing disclaimers.
+* **Severe Hallucinations & Weak Reasoning:** The `3B` parameter model is extremely weak for real security tasks and **hallucinates heavily**. In the example above, the generated code crashes immediately upon execution (`AttributeError: 'int' object has no attribute 'isalpha'`, because `co_code` returns raw `bytes`, not a string), omits any decryption/execution stub, and suggests a trivial Caesar cipher that cannot bypass any real AV/EDR engine. It also hallucinates non-existent `nmap` flags and wrong CWE identifiers during tests.
+* **Architectural Conclusion:** A `3B` CPU-bound model cannot be trusted to write raw exploits or complex CLI commands on its own. For Phase 1, its only role is to validate the agentic pipeline and call deterministic Python MCP servers (`nmap`, `semgrep`, `httpx`), where all critical logic is hardcoded reliably. Real autonomous reasoning requires migrating to a `27B–32B` model on a dedicated GPU VPS in Phase 2.
+
