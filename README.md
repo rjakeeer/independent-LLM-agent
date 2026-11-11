@@ -1,6 +1,10 @@
 # 🛡️ Independent LLM Security Agent (`independent-LLM-agent`)
 
-Посетите наш [сайт проекта](https://example.com).
+![License: MIT](https://shields.io)
+![Protocol: MCP](https://shields.io)
+![Python: 3.11+](https://shields.io)
+![Docker: Sandbox](https://shields.io)
+![Status: Phase 1 - Local](https://shields.io)
 
 ---
 
@@ -20,36 +24,26 @@
 
 ---
 
-### 🏗️ Architecture
+### 🗺️ Project Roadmap
 
-```mermaid
-graph LR
-    A[Local Workstation / IDE Agent] <-->|Encrypted Tunnel WireGuard/Tailscale| B[Isolated GPU VPS]
-    B <--> C[Ollama / Uncensored LLM]
-    A <-->|MCP Protocol| D[Custom Python MCP Servers]
-    D <--> E[Target Sandbox / Docker App]
-```
+#### Phase 1: Local Sandbox & Lightweight Agent (Current Stage)
+The primary goal of the first stage is to build and validate the entire autonomous agent pipeline **100% locally** on a standard workstation using a compact uncensored model before scaling to remote GPU infrastructure.
+
+* **Core Stack & Tools:**
+  * **Inference Engine:** Ollama (local API endpoint)
+  * **LLM:** Lightweight uncensored / abliterated model (`Bonsai-2 Uncensored 9B` or `Qwen-Coder-7B-abliterated`)
+  * **Agent Framework:** Cline / Roo Code (VS Code)
+  * **Custom MCP Servers (Python / `FastMCP`):**
+    * `recon_server.py` — automated port scanning (`nmap`) and HTTP header inspection.
+    * `filesystem / git_server` — autonomous file creation and repository reporting.
+  * **Target Environment:** Isolated vulnerable web application running locally in Docker (e.g., DVWA / custom vulnerable Flask app).
+
+* **Phase 1 Milestones & Deliverables:**
+  * [ ] Deploy the lightweight uncensored LLM locally and verify zero censorship refusals on security research queries.
+  * [ ] Connect custom Python MCP tools to the agent and spin up the local Docker target sandbox.
+  * [ ] Execute an automated penetration test against the local testbed and generate a working PoC exploit.
+  * [ ] **Autonomous Reporting:** Have the agent automatically generate a structured Markdown vulnerability report (including the PoC and remediation patch) and commit/save the file directly into this repository.
 
 ---
 
-### 🗺️ Project Roadmap
-
-#### Phase 1: Local Prototyping & Lightweight Model
-* [ ] Deploy a local inference engine (**Ollama**) on the workstation.
-* [ ] Run and benchmark a compact uncensored model (e.g., `Bonsai-2 Uncensored 9B` or `Qwen-Coder-7B-abliterated`) to validate reliable Function Calling / Tool Use.
-* [ ] Configure an agentic IDE environment (**Cline / Roo Code**) and craft strict system prompts aligned with OWASP Top 10 methodologies.
-* [ ] Develop initial custom MCP servers in Python (`FastMCP`) to automate reconnaissance and static source code auditing.
-
-#### Phase 2: Local Sandbox & Proof-of-Concept Tests
-Spin up an isolated vulnerable environment in Docker on the local machine and validate the full **Recon -> Vulnerability Discovery -> PoC Verification -> Patch Generation** loop:
-* [ ] **Test #1 (White-Box / SAST + Auto-Patching):** Audit a local vulnerable Python/Flask web application (detecting SQL injection or insecure deserialization in source code), generate a PoC script to confirm exploitability on the sandbox, apply an automated code patch, and re-verify the fix.
-* [ ] **Test #2 (Black-Box / Web Recon):** Perform automated scanning against a local testbed (e.g., DVWA or OWASP Juice Shop) via a custom MCP wrapper (`nmap` + HTTP security header parser) to identify exposed endpoints and missing security headers (CSP, HSTS, X-Frame-Options).
-
-#### Phase 3: Private VPS Infrastructure & Encrypted Tunneling
-* [ ] Provision a dedicated GPU server (24+ GB VRAM, e.g., RTX 3090 / 4090 / A100) from a privacy-friendly provider supporting cryptocurrency payments and strict no-logs policies.
-* [ ] Perform server hardening: disable password authentication (SSH keys only) and configure `ufw` firewall rules to block all public incoming traffic.
-* [ ] Establish a private peer-to-peer encrypted tunnel (**WireGuard / Tailscale**) between the local workstation and the VPS, binding the LLM API endpoint exclusively to the internal tunnel IP.
-
-#### Phase 4: Production LLM Deployment & Real-World Auditing
-* [ ] Deploy a full-scale uncensored model on the VPS (**Qwen 3.8-27B Uncensored / Abliterated** or **Hermes 4 32B**) with an extended context window (`num_ctx` 16k–32k) for deep analysis of large codebases and scan logs.
-* [ ] Conduct a comprehensive automated security audit of a self-owned web application (on an isolated staging environment), generating a structured vulnerability report and verified security patches.
+*(Phase 2: Migration to an isolated GPU VPS over an encrypted WireGuard/Tailscale tunnel with a full-scale 27B–32B model — coming soon).*
