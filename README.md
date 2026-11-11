@@ -1,9 +1,6 @@
 # 🛡️ Independent LLM Security Agent (`independent-LLM-agent`)
 
-![License: MIT](https://shields.io)
-![Protocol: MCP](https://shields.io)
-![Python: 3.11+](https://shields.io)
-![Status: In Development](https://shields.io)
+**License:** MIT | **Protocol:** Model Context Protocol (MCP) | **Stack:** Python 3.11+, Ollama, Docker | **Status:** In Development
 
 ---
 
@@ -23,7 +20,7 @@
 
 ---
 
-### 🏗️ Architecture / Архитектура
+### 🏗️ Architecture
 
 ```mermaid
 graph LR
@@ -35,24 +32,24 @@ graph LR
 
 ---
 
-### 🗺️ Project Roadmap / План разработки
+### 🗺️ Project Roadmap
 
-#### Phase 1: Local Prototyping & Lightweight Model (Локальный прототип и легкая модель)
-* [ ] Развертывание локального движка инференса (**Ollama**) на ноутбуке.
-* [ ] Запуск и тестирование компактной модели без цензуры (например, `Bonsai-2 Uncensored 9B` или `Qwen-Coder-7B-abliterated`) для отладки вызова функций (Function Calling).
-* [ ] Настройка агентской оболочки (**Cline / Roo Code**) и написание базовых системных промптов по методологии OWASP Top 10.
-* [ ] Разработка первых кастомных MCP-серверов на Python (`FastMCP`) для автоматизации разведки и анализа исходного кода.
+#### Phase 1: Local Prototyping & Lightweight Model
+* [ ] Deploy a local inference engine (**Ollama**) on the workstation.
+* [ ] Run and benchmark a compact uncensored model (e.g., `Bonsai-2 Uncensored 9B` or `Qwen-Coder-7B-abliterated`) to validate reliable Function Calling / Tool Use.
+* [ ] Configure an agentic IDE environment (**Cline / Roo Code**) and craft strict system prompts aligned with OWASP Top 10 methodologies.
+* [ ] Develop initial custom MCP servers in Python (`FastMCP`) to automate reconnaissance and static source code auditing.
 
-#### Phase 2: Local Sandbox & Proof-of-Concept Tests (Локальные стенды и тесты)
-Поднятие изолированного уязвимого окружения в Docker на локальной машине и отработка полного цикла **«Разведка -> Поиск бага -> PoC-проверка -> Генерация патча»**:
-* [ ] **Тест №1 (White-Box / SAST + Patching):** Аудит локального уязвимого веб-приложения на Python/Flask (поиск SQL-инъекции или небезопасной десериализации в исходниках), написание скрипта для подтверждения уязвимости на стенде и автоматическое исправление уязвимого участка кода с повторной проверкой.
-* [ ] **Тест №2 (Black-Box / Web Recon):** Автоматизированное сканирование локального стенда (например, DVWA или OWASP Juice Shop) через кастомный MCP-инструмент (обертка над `nmap` и парсер HTTP-заголовков), выявление открытых эндпоинтов и проверка отсутствующих заголовков безопасности (CSP, HSTS, X-Frame-Options).
+#### Phase 2: Local Sandbox & Proof-of-Concept Tests
+Spin up an isolated vulnerable environment in Docker on the local machine and validate the full **Recon -> Vulnerability Discovery -> PoC Verification -> Patch Generation** loop:
+* [ ] **Test #1 (White-Box / SAST + Auto-Patching):** Audit a local vulnerable Python/Flask web application (detecting SQL injection or insecure deserialization in source code), generate a PoC script to confirm exploitability on the sandbox, apply an automated code patch, and re-verify the fix.
+* [ ] **Test #2 (Black-Box / Web Recon):** Perform automated scanning against a local testbed (e.g., DVWA or OWASP Juice Shop) via a custom MCP wrapper (`nmap` + HTTP security header parser) to identify exposed endpoints and missing security headers (CSP, HSTS, X-Frame-Options).
 
-#### Phase 3: Private VPS Infrastructure & Tunneling (Аренда VPS и защищенный контур)
-* [ ] Подбор и аренда выделенного GPU-сервера (от 24 ГБ VRAM, например RTX 3090 / 4090 / A100) у провайдера с поддержкой приватной оплаты (криптовалюта) и строгой политикой отсутствия логирования.
-* [ ] Базовая защита сервера (Hardening): отключение входа по паролю (только SSH-ключи), настройка фаервола (`ufw` — закрытие всех входящих портов из публичной сети).
-* [ ] Поднятие закрытого зашифрованного P2P-туннеля (**WireGuard / Tailscale**) между локальным ноутбуком и VPS, привязка API нейросети исключительно к внутреннему IP-адресу туннеля.
+#### Phase 3: Private VPS Infrastructure & Encrypted Tunneling
+* [ ] Provision a dedicated GPU server (24+ GB VRAM, e.g., RTX 3090 / 4090 / A100) from a privacy-friendly provider supporting cryptocurrency payments and strict no-logs policies.
+* [ ] Perform server hardening: disable password authentication (SSH keys only) and configure `ufw` firewall rules to block all public incoming traffic.
+* [ ] Establish a private peer-to-peer encrypted tunnel (**WireGuard / Tailscale**) between the local workstation and the VPS, binding the LLM API endpoint exclusively to the internal tunnel IP.
 
-#### Phase 4: Production LLM Deployment & Real-World Testing (Развертывание сильной модели и аудит)
-* [ ] Развертывание полноразмерной модели без цензуры на VPS (**Qwen 3.8-27B Uncensored / Abliterated** или **Hermes 4 32B**) с расширенным контекстным окном (`num_ctx` 16k–32k) для глубокого анализа больших кодовых баз и логов.
-* [ ] Проведение комплексного автоматизированного аудита безопасности собственного веб-проекта (на изолированной staging-копии) с формированием итогового отчета об уязвимостях и верифицированных патчей.
+#### Phase 4: Production LLM Deployment & Real-World Auditing
+* [ ] Deploy a full-scale uncensored model on the VPS (**Qwen 3.8-27B Uncensored / Abliterated** or **Hermes 4 32B**) with an extended context window (`num_ctx` 16k–32k) for deep analysis of large codebases and scan logs.
+* [ ] Conduct a comprehensive automated security audit of a self-owned web application (on an isolated staging environment), generating a structured vulnerability report and verified security patches.
