@@ -1,0 +1,6 @@
+# phase 1
+1) sudo su 
+   dnf update
+   dnf install -y git curl wget nmap python3 python3-pip moby-engine docker-compose]
+   systemctl enable --now docker
+   exit
