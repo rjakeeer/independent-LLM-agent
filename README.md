@@ -1,10 +1,6 @@
 # 🛡️ Independent LLM Security Agent (`independent-LLM-agent`)
 
-![License: MIT](https://shields.io)
-![Protocol: MCP](https://shields.io)
-![Python: 3.11+](https://shields.io)
-![Docker: Sandbox](https://shields.io)
-![Status: In Development](https://shields.io)
+Посетите наш [сайт проекта](https://example.com).
 
 ---
 
